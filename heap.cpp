@@ -9,13 +9,12 @@ using std::cout;
 // Builds a heap from the range [start, end) using the heapify algorithm
 // Should run in O(n) time
 Heap::Heap(std::vector<int>::iterator start, std::vector<int>::iterator end){
-	std::vector<int> vdata;
 	for ( auto i = start ; i != end; i ++ ) {
 		vdata.push_back(*i);
 	}
 	for ( int i = (int)(vdata.size()-1)/2 ; i >= 0 ; i-- ) {
+		int index = i;
 		while ( true ) {
-			int index = i;
 			int left_child = 2*index + 1;
 			int right_child =2*index + 2;
 			if (left_child < (int)(vdata.size()) && vdata[left_child] < vdata[index] ) {
@@ -38,7 +37,7 @@ Heap::Heap(std::vector<int>::iterator start, std::vector<int>::iterator end){
 void Heap::push(int value){
 	vdata.push_back(value);
 	int index = vdata.size() - 1;
-	while ( vdata[index] < vdata[(index-1)/2] ) {
+	while (index>0 &&  vdata[index] < vdata[(index-1)/2] ) {
 		std::swap(vdata[index],vdata[(index-1)/2]);
 		index = (index-1)/2;
 	} 
@@ -52,8 +51,8 @@ void Heap::pop(){
 	if ( vdata.empty() ) {return;}
 	vdata.erase(vdata.begin());
 	for ( int i = (int)(vdata.size() - 1)/2; i >= 0 ; i ++ ) {
+		int index = i;
 		while (true ) {
-			int index = i;
 			int left_child = 2*index + 1;
 			int right_child = 2*index + 2;
 			if ( left_child < (int)(vdata.size()) && vdata[index] > vdata[left_child] ) {
