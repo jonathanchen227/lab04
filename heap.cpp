@@ -50,18 +50,21 @@ void Heap::push(int value){
 void Heap::pop(){
 	if ( vdata.empty() ) {return;}
 	vdata.erase(vdata.begin());
-	for ( int i = (int)(vdata.size() - 1)/2; i >= 0 ; i ++ ) {
+	for ( int i = (int)(vdata.size() - 1)/2; i >= 0 ; i -- ) {
 		int index = i;
 		while (true ) {
 			int left_child = 2*index + 1;
 			int right_child = 2*index + 2;
-			if ( left_child < (int)(vdata.size()) && vdata[index] > vdata[left_child] ) {
-				std::swap(vdata[index],vdata[left_child]);
-				index = left_child;
+			int minimum = index;
+			if ( left_child < (int)(vdata.size()) && vdata[minimum] > vdata[left_child] ) {
+				minimum = left_child;
 			}
-			if ( right_child < (int)(vdata.size()) && vdata[index] > vdata[right_child] ) {
-				std::swap(vdata[index],vdata[right_child]);
-				index = right_child;
+			if ( right_child < (int)(vdata.size()) && vdata[minimum] > vdata[right_child] ) {
+				minimum = right_child;
+			}
+			if ( minimum != index ) {
+				std::swap(vdata[index],vdata[minimum]);
+				index = minimum;
 			}
 			else {
 				break;
@@ -72,6 +75,7 @@ void Heap::pop(){
 
 // Returns the minimum element in the heap
 int Heap::top(){
+  if ( vdata.empty() ) { throw std::out_of_range("empty"); }
   return vdata[0];
 }
 

@@ -1,17 +1,10 @@
 CXX = g++
 CXXFLAGS = -std=c++17 -Wall -Wextra
 
+SRCS = heap.cpp examheap.cpp
 TARGET = examheap
-SRCS = examheap.cpp heap.cpp
-OBJS = $(SRCS:.cpp=.o)
-
 all: $(TARGET)
-
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
+$(TARGET): $(SRCS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRCS)
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(TARGET) *.o
