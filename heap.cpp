@@ -17,13 +17,16 @@ Heap::Heap(std::vector<int>::iterator start, std::vector<int>::iterator end){
 		while ( true ) {
 			int left_child = 2*index + 1;
 			int right_child =2*index + 2;
-			if (left_child < (int)(vdata.size()) && vdata[left_child] < vdata[index] ) {
-				std::swap(vdata[index],vdata[left_child]);
-				index = left_child;
+			int minimum = index;
+			if (left_child < (int)(vdata.size()) && vdata[left_child] < vdata[minimum] ) {
+				minimum = left_child;
 			} 
-			if (right_child < (int)(vdata.size()) && vdata[right_child] < vdata[index]) {
-				std::swap(vdata[index],vdata[right_child]);
-				index = right_child;
+			if (right_child < (int)(vdata.size()) && vdata[right_child] < vdata[minimum]) {
+				minimum = right_child;
+			}
+			if ( minimum != index ) {
+				std::swap(vdata[minimum],vdata[index]);
+				index = minimum;
 			}
 			else {
 				break;
